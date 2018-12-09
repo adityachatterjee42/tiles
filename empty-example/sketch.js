@@ -43,19 +43,21 @@ function Tile(xcoord, ycoord) {
   }
 }
 
-function mouseClicked() {
-  tiles.forEach(function(tile) {
+async function mouseClicked() {
+  tiles.forEach(async function(tile) {
     if(tile.check() == true){
-      tiles.forEach(function(rip) {
-        if(Math.abs(tile.x-rip.x)<100 && Math.abs(tile.y-rip.y)<100 && Math.random()<0.4){
+      tiles.forEach(async function(rip) {
+        if(Math.abs(tile.x-rip.x)<100 && Math.abs(tile.y-rip.y)<100 && Math.random()<0.5){
           ripplequeue.push(rip);
           setTimeout(() => ripplequeue.shift(), 500);
         }
-        if(Math.abs(tile.x-rip.x)>100 && Math.abs(tile.x-rip.x)<200 && Math.abs(tile.y-rip.y)>100 && Math.abs(tile.y-rip.y)<200 && Math.random()<0.25){
+        await delay(200);
+        if(Math.abs(tile.x-rip.x)>100 && Math.abs(tile.x-rip.x)<200 && Math.abs(tile.y-rip.y)>100 && Math.abs(tile.y-rip.y)<200 && Math.random()<0.3){
           ripplequeue.push(rip);
           setTimeout(() => ripplequeue.shift(), 500);
         }
-        if(Math.abs(tile.x-rip.x)>200 && Math.abs(tile.x-rip.x)<300 && Math.abs(tile.y-rip.y)>200 && Math.abs(tile.y-rip.y)<300 && Math.random()<0.15){
+        await delay(200);
+        if(Math.abs(tile.x-rip.x)>200 && Math.abs(tile.x-rip.x)<300 && Math.abs(tile.y-rip.y)>200 && Math.abs(tile.y-rip.y)<300 && Math.random()<0.1){
           ripplequeue.push(rip);
           setTimeout(() => ripplequeue.shift(), 500);
         }
@@ -72,4 +74,8 @@ function keyPressed() {
     switchqueue.push(tile);
     setTimeout(() => switchqueue.shift(), 3000);
   }
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
